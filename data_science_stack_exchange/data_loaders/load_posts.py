@@ -8,22 +8,14 @@ if 'data_loader' not in globals():
 if 'test' not in globals():
     from mage_ai.data_preparation.decorators import test
 
-from data_science_stack_exchange.utils.helpers import loaders_common
+from data_science_stack_exchange.utils.helpers.loaders import load_and_parse_dataframe
 
 
 @data_loader
-def load_data_from_file(*args, **kwargs):
-    """
-    Template for loading data from filesystem.
-    Load data from 1 file or multiple file directories.
-
-    For multiple directories, use the following:
-        FileIO().load(file_directories=['dir_1', 'dir_2'])
-
-    Docs: https://docs.mage.ai/design/data-loading#fileio
-    """
-    return loaders_common.load_and_parse_dataframe(
-        pathlib.Path(kwargs['DATA_DIR']) / 'Posts.xml',
+def load_data_from_file(data_dir_dict: dict, **kwargs):
+    data_dir_path = pathlib.Path(data_dir_dict['data_dir'])
+    return load_and_parse_dataframe(
+        data_dir_path / 'Posts.xml',
         {
             'Body': pd.StringDtype(),
             'Title': pd.StringDtype(),
@@ -43,7 +35,4 @@ def load_data_from_file(*args, **kwargs):
 
 @test
 def test_output(output, *args) -> None:
-    """
-    Template code for testing the output of the block.
-    """
     assert output is not None, 'The output is undefined'

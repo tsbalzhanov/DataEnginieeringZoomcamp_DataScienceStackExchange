@@ -39,23 +39,18 @@ def download_and_unpack_archive(url: str, output_dir_path: pathlib.Path | str) -
 
 @data_loader
 def load_data(*args, **kwargs):
-    """
-    Template code for loading data from any source.
-
-    Returns:
-        Anything (e.g. data frame, dictionary, array, int, str, etc.)
-    """
-    url = 'https://archive.org/download/stackexchange/datascience.meta.stackexchange.com.7z'
-
     data_dir = pathlib.Path(kwargs['DATA_DIR'])
     data_dir.mkdir(exist_ok=True)
-    download_and_unpack_archive(url, data_dir)
-    return str(data_dir)
+    download_and_unpack_archive(kwargs['INITIAL_DATA_URL'], data_dir)
+    return {'data_dir': str(data_dir)}
 
 
 @test
-def test_output(output, *args) -> None:
-    """
-    Template code for testing the output of the block.
-    """
-    assert output is not None, 'The output is undefined'
+def test_output(data_dir_dict, *args) -> None:
+    assert False
+    assert data_dir_dict is not None, 'The output is undefined'
+    assert 'data_dir' in data_dir_dict
+    data_dir_path = pathlib.Path(data_dir_dict['data_dir'])
+    assert data_dir_path.exists() and data_dir_path.is_dir()
+    assert set((file_.name for file_ in data_dir_path.iterdir())) ==\
+        {'Badges.xml', 'Comments.xml', 'PostHistory.xml', 'PostLinks.xml', 'Posts.xml', 'Tags.xml', 'Users.xml', 'Votes.xml'}

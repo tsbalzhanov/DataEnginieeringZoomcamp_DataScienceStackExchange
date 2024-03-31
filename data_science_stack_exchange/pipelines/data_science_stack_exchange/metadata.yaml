@@ -26,7 +26,7 @@ blocks:
   color: null
   configuration: {}
   downstream_blocks:
-  - add_month_column_to_posts
+  - add_partition_column_to_posts
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -48,18 +48,19 @@ blocks:
   executor_type: local_python
   has_callback: false
   language: python
-  name: add_month_column_to_posts
+  name: add_partition_column_to_posts
   retry_config: null
   status: executed
   timeout: null
   type: transformer
   upstream_blocks:
   - load_posts
-  uuid: add_month_column_to_posts
+  uuid: add_partition_column_to_posts
 - all_upstream_blocks_executed: true
   color: null
   configuration: {}
-  downstream_blocks: []
+  downstream_blocks:
+  - add_partition_column_to_comments
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -72,6 +73,40 @@ blocks:
   upstream_blocks:
   - download_and_unpack_archive
   uuid: load_comments
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - export_comments_to_gcs
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: add_partition_column_to_comments
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - load_comments
+  uuid: add_partition_column_to_comments
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - create_external_gcs_table
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: export_comments_to_gcs
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - add_partition_column_to_comments
+  uuid: export_comments_to_gcs
 - all_upstream_blocks_executed: true
   color: null
   configuration: {}
@@ -223,9 +258,9 @@ blocks:
   timeout: null
   type: data_exporter
   upstream_blocks:
-  - add_month_column_to_posts
+  - add_partition_column_to_posts
   uuid: export_posts_to_gcs
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: pink
   configuration: {}
   downstream_blocks: []
@@ -240,6 +275,7 @@ blocks:
   type: custom
   upstream_blocks:
   - export_posts_to_gcs
+  - export_comments_to_gcs
   uuid: create_external_gcs_table
 - all_upstream_blocks_executed: true
   color: blue
@@ -284,5 +320,6 @@ variables:
   GCLOUD_PROJECT_ID: de-zoomcamp-ds-stackexchange
   GCS_BUCKET: dataenginieeringzoomcamp-datasciencestackexchange
   INITIAL_DATA_URL: https://archive.org/download/stackexchange/datascience.meta.stackexchange.com.7z
+  POST_ID_PARTITIONS_NUM: 16
 variables_dir: /home/src/mage_data/data_science_stack_exchange
 widgets: []

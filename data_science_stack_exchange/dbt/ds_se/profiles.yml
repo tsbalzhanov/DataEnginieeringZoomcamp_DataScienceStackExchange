@@ -1,8 +1,8 @@
 ds_se:
   outputs:
     dev:
-      # dataset: stack_exchange
-      dataset: stack_exchange_test
+      dataset: stack_exchange
+      # dataset: stack_exchange_test
       job_execution_timeout_seconds: 300
       job_retries: 1
       keyfile: //home/credendials/google_cloud_credentials.json

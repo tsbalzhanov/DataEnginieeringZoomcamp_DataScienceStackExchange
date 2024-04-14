@@ -497,14 +497,14 @@ tags: []
 type: python
 uuid: data_science_stack_exchange
 variables:
-  BIGQUERY_DATASET_ID: stack_exchange_test
+  BIGQUERY_DATASET_ID: stack_exchange
   DATA_DIR: docker_data
   GCLOUD_PROJECT_ID: de-zoomcamp-ds-stackexchange
   GCS_BUCKET: dataenginieeringzoomcamp-datasciencestackexchange
-  INITIAL_DATA_URL: https://archive.org/download/stackexchange/datascience.meta.stackexchange.com.7z
+  INITIAL_DATA_URL: https://archive.org/download/stackexchange/datascience.stackexchange.com.7z
   POST_ID_PARTITIONS_COLUMN: PostIdPartition
-  POST_ID_PARTITIONS_NUM: 4
+  POST_ID_PARTITIONS_NUM: 16
   USER_ID_PARTITIONS_COLUMN: UserIdPartition
-  USER_ID_PARTITIONS_NUM: 4
+  USER_ID_PARTITIONS_NUM: 16
 variables_dir: /home/src/mage_data/data_science_stack_exchange
 widgets: []

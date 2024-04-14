@@ -47,7 +47,6 @@ def load_data(*args, **kwargs):
 
 @test
 def test_output(data_dir_dict, *args) -> None:
-    assert False
     assert data_dir_dict is not None, 'The output is undefined'
     assert 'data_dir' in data_dir_dict
     data_dir_path = pathlib.Path(data_dir_dict['data_dir'])

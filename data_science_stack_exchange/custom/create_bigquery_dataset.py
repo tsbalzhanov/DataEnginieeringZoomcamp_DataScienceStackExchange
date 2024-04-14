@@ -30,4 +30,4 @@ def create_biquery_dataset(*args, **kwargs) -> dict:
 @test
 def test_output(full_dataset_id_dict, *args) -> None:
     assert False
-    # bq_client.get_dataset(full_dataset_id)
+    bq_client.get_dataset(full_dataset_id)

@@ -16,6 +16,8 @@ def transform_custom(*gcs_dicts, **kwargs) -> dict:
 
     table_names = {}
     for gcs_dict in gcs_dicts:
+        if 'table_name' not in gcs_dict:
+            continue
         table_name = gcs_dict['table_name']
         gcs_prefix = gcs_dict['prefix']
 

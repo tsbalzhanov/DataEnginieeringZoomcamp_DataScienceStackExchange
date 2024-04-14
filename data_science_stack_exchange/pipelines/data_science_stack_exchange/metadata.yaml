@@ -94,7 +94,7 @@ blocks:
   color: null
   configuration: {}
   downstream_blocks:
-  - create_external_gcs_table
+  - create_bigquery_external_gcs_table
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -209,7 +209,7 @@ blocks:
   color: null
   configuration: {}
   downstream_blocks:
-  - create_external_gcs_table
+  - create_bigquery_external_gcs_table
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -260,7 +260,7 @@ blocks:
   color: null
   configuration: {}
   downstream_blocks:
-  - create_external_gcs_table
+  - create_bigquery_external_gcs_table
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -275,49 +275,9 @@ blocks:
   uuid: export_users_to_gcs
 - all_upstream_blocks_executed: true
   color: null
-  configuration:
-    data_provider: bigquery
-    data_provider_profile: default
-    export_write_policy: append
-  downstream_blocks: []
-  executor_config: null
-  executor_type: local_python
-  has_callback: false
-  language: python
-  name: test_gcs_connection
-  retry_config: null
-  status: executed
-  timeout: null
-  type: data_loader
-  upstream_blocks: []
-  uuid: test_gcs_connection
-- all_upstream_blocks_executed: true
-  color: null
-  configuration:
-    data_provider: bigquery
-    data_provider_profile: default
-    dbt: {}
-    disable_query_preprocessing: true
-    export_write_policy: append
-    limit: 1000
-    use_raw_sql: true
-  downstream_blocks: []
-  executor_config: null
-  executor_type: local_python
-  has_callback: false
-  language: sql
-  name: test_bigquery_connection
-  retry_config: null
-  status: executed
-  timeout: null
-  type: data_loader
-  upstream_blocks: []
-  uuid: test_bigquery_connection
-- all_upstream_blocks_executed: true
-  color: null
   configuration: {}
   downstream_blocks:
-  - create_external_gcs_table
+  - create_bigquery_external_gcs_table
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -333,12 +293,16 @@ blocks:
 - all_upstream_blocks_executed: false
   color: pink
   configuration: {}
-  downstream_blocks: []
+  downstream_blocks:
+  - dbt/ds_se/models/comments
+  - dbt/ds_se/models/posts
+  - dbt/ds_se/models/users
+  - dbt/ds_se/models/votes
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
-  name: create_external_gcs_table
+  name: create_bigquery_external_gcs_table
   retry_config: null
   status: executed
   timeout: null
@@ -348,11 +312,106 @@ blocks:
   - export_comments_to_gcs
   - export_votes_to_gcs
   - export_users_to_gcs
-  uuid: create_external_gcs_table
+  - create_bigquery_dataset
+  uuid: create_bigquery_external_gcs_table
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    dbt_project_name: dbt/ds_se
+    file_path: dbt/ds_se/models/votes.sql
+    file_source:
+      path: dbt/ds_se/models/votes.sql
+      project_path: dbt/ds_se
+    limit: 1000
+  downstream_blocks:
+  - dbt/ds_se/models/vote_type_stats
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/ds_se/models/votes
+  retry_config: null
+  status: executed
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - create_bigquery_external_gcs_table
+  uuid: dbt/ds_se/models/votes
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    dbt_project_name: dbt/ds_se
+    file_path: dbt/ds_se/models/vote_type_stats.sql
+    file_source:
+      path: dbt/ds_se/models/vote_type_stats.sql
+      project_path: dbt/ds_se
+    limit: 1000
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/ds_se/models/vote_type_stats
+  retry_config: null
+  status: executed
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - dbt/ds_se/models/votes
+  - seed_vote_types
+  uuid: dbt/ds_se/models/vote_type_stats
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    dbt_project_name: dbt/ds_se
+    file_path: dbt/ds_se/models/users.sql
+    file_source:
+      path: dbt/ds_se/models/users.sql
+      project_path: dbt/ds_se
+    limit: 1000
+  downstream_blocks:
+  - dbt/ds_se/models/top_commenters
+  - dbt/ds_se/models/top_posters
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/ds_se/models/users
+  retry_config: null
+  status: executed
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - create_bigquery_external_gcs_table
+  uuid: dbt/ds_se/models/users
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    dbt_project_name: dbt/ds_se
+    file_path: dbt/ds_se/models/top_posters.sql
+    file_source:
+      path: dbt/ds_se/models/top_posters.sql
+      project_path: dbt/ds_se
+    limit: 1000
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/ds_se/models/top_posters
+  retry_config: null
+  status: executed
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - dbt/ds_se/models/users
+  - dbt/ds_se/models/posts
+  uuid: dbt/ds_se/models/top_posters
 - all_upstream_blocks_executed: true
   color: blue
   configuration: {}
-  downstream_blocks: []
+  downstream_blocks:
+  - create_bigquery_external_gcs_table
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -364,6 +423,125 @@ blocks:
   type: custom
   upstream_blocks: []
   uuid: create_bigquery_dataset
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    dbt_project_name: dbt/ds_se
+    file_path: dbt/ds_se/models/comments.sql
+    file_source:
+      path: dbt/ds_se/models/comments.sql
+      project_path: dbt/ds_se
+    limit: 1000
+  downstream_blocks:
+  - dbt/ds_se/models/top_commenters
+  - dbt/ds_se/models/monthly_post_and_comments_stats
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/ds_se/models/comments
+  retry_config: null
+  status: executed
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - create_bigquery_external_gcs_table
+  uuid: dbt/ds_se/models/comments
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    dbt_project_name: dbt/ds_se
+    file_path: dbt/ds_se/models/monthly_post_and_comments_stats.sql
+    file_source:
+      path: dbt/ds_se/models/monthly_post_and_comments_stats.sql
+      project_path: dbt/ds_se
+    limit: 1000
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/ds_se/models/monthly_post_and_comments_stats
+  retry_config: null
+  status: executed
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - dbt/ds_se/models/comments
+  - dbt/ds_se/models/posts
+  uuid: dbt/ds_se/models/monthly_post_and_comments_stats
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    dbt_project_name: dbt/ds_se
+    file_path: dbt/ds_se/models/top_commenters.sql
+    file_source:
+      path: dbt/ds_se/models/top_commenters.sql
+      project_path: dbt/ds_se
+    limit: 1000
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/ds_se/models/top_commenters
+  retry_config: null
+  status: executed
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - dbt/ds_se/models/comments
+  - dbt/ds_se/models/users
+  uuid: dbt/ds_se/models/top_commenters
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    dbt:
+      command: seed
+    dbt_profile_target: dev
+    dbt_project_name: dbt/ds_se
+    disable_query_preprocessing: false
+    export_write_policy: append
+    file_source:
+      path: dbts/seed_vote_types.yaml
+    use_raw_sql: false
+  downstream_blocks:
+  - dbt/ds_se/models/vote_type_stats
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: yaml
+  name: seed_vote_types
+  retry_config: null
+  status: executed
+  timeout: null
+  type: dbt
+  upstream_blocks: []
+  uuid: seed_vote_types
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    dbt_project_name: dbt/ds_se
+    file_path: dbt/ds_se/models/posts.sql
+    file_source:
+      path: dbt/ds_se/models/posts.sql
+      project_path: dbt/ds_se
+    limit: 1000
+  downstream_blocks:
+  - dbt/ds_se/models/top_posters
+  - dbt/ds_se/models/monthly_post_and_comments_stats
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/ds_se/models/posts
+  retry_config: null
+  status: executed
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - create_bigquery_external_gcs_table
+  uuid: dbt/ds_se/models/posts
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}

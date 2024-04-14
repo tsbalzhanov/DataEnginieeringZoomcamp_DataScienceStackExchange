@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: stack_exchange
+    schema: stack_exchange_test
+
+    tables:
+      - name: comments_external
+      - name: posts_external
+      - name: users_external
+      - name: votes_external

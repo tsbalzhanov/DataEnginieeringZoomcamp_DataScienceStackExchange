@@ -315,7 +315,7 @@ tags: []
 type: python
 uuid: data_science_stack_exchange
 variables:
-  BIGQUERY_DATASET_ID: stack_exchange
+  BIGQUERY_DATASET_ID: stack_exchange_test
   DATA_DIR: docker_data
   GCLOUD_PROJECT_ID: de-zoomcamp-ds-stackexchange
   GCS_BUCKET: dataenginieeringzoomcamp-datasciencestackexchange

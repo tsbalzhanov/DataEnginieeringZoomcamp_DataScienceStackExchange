@@ -12,6 +12,10 @@ def upload_partitioned_table_to_gcs(df: pd.DataFrame, table_path_postfix: str, p
     gcs_fs = pa.fs.GcsFileSystem()
 
     pa_table = pa.Table.from_pandas(df)
-    pq.write_to_dataset(pa_table, root_path=gcs_data_path, partition_cols=partition_cols, filesystem=gcs_fs)
+    pq.write_to_dataset(pa_table, filesystem=gcs_fs, root_path=gcs_data_path,
+                        partition_cols=partition_cols, existing_data_behavior='delete_matching')
 
-    return [f'gs://{path}' for path in pq.ParquetDataset(gcs_data_path, gcs_fs).files]
+    return {
+        'prefix': f'gs://{gcs_data_path}',
+        'paths': [f'gs://{path}' for path in pq.ParquetDataset(gcs_data_path, gcs_fs).files]
+    }

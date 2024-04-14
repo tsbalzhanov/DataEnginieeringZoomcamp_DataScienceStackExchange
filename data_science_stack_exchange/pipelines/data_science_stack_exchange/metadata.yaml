@@ -174,7 +174,8 @@ blocks:
 - all_upstream_blocks_executed: true
   color: null
   configuration: {}
-  downstream_blocks: []
+  downstream_blocks:
+  - add_partition_column_to_votes
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -190,7 +191,42 @@ blocks:
 - all_upstream_blocks_executed: true
   color: null
   configuration: {}
-  downstream_blocks: []
+  downstream_blocks:
+  - export_votes_to_gcs
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: add_partition_column_to_votes
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - load_votes
+  uuid: add_partition_column_to_votes
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - create_external_gcs_table
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: export_votes_to_gcs
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - add_partition_column_to_votes
+  uuid: export_votes_to_gcs
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - add_partition_column_to_users
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -203,6 +239,40 @@ blocks:
   upstream_blocks:
   - download_and_unpack_archive
   uuid: load_users
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - export_users_to_gcs
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: add_partition_column_to_users
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - load_users
+  uuid: add_partition_column_to_users
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - create_external_gcs_table
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: export_users_to_gcs
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - add_partition_column_to_users
+  uuid: export_users_to_gcs
 - all_upstream_blocks_executed: true
   color: null
   configuration:
@@ -276,6 +346,8 @@ blocks:
   upstream_blocks:
   - export_posts_to_gcs
   - export_comments_to_gcs
+  - export_votes_to_gcs
+  - export_users_to_gcs
   uuid: create_external_gcs_table
 - all_upstream_blocks_executed: true
   color: blue
@@ -320,6 +392,9 @@ variables:
   GCLOUD_PROJECT_ID: de-zoomcamp-ds-stackexchange
   GCS_BUCKET: dataenginieeringzoomcamp-datasciencestackexchange
   INITIAL_DATA_URL: https://archive.org/download/stackexchange/datascience.meta.stackexchange.com.7z
-  POST_ID_PARTITIONS_NUM: 16
+  POST_ID_PARTITIONS_COLUMN: PostIdPartition
+  POST_ID_PARTITIONS_NUM: 4
+  USER_ID_PARTITIONS_COLUMN: UserIdPartition
+  USER_ID_PARTITIONS_NUM: 4
 variables_dir: /home/src/mage_data/data_science_stack_exchange
 widgets: []

@@ -21,6 +21,7 @@ def load_data_from_file(data_dir_dict: dict, **kwargs):
             'Title': pd.StringDtype(),
             'Tags': pd.StringDtype(),
             'ContentLicense': pd.StringDtype(),
+            'OwnerUserId': 'Int64',
             'OwnerDisplayName': pd.StringDtype(),
             'ParentId': 'Int64',
             'ViewCount': 'Int64',

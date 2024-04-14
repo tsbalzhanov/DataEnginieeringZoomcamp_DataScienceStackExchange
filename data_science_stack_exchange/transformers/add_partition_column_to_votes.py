@@ -10,13 +10,10 @@ from data_science_stack_exchange.utils.helpers import transformers as transforme
 
 @transformer
 def transform(df, *args, **kwargs):
-    transformers_helpers.add_post_partition_column(df, 'Id', **kwargs)
-    transformers_helpers.add_user_partition_column(df, 'OwnerUserId', **kwargs)
-    return df
+    return transformers_helpers.add_post_partition_column(df, 'PostId', **kwargs)
 
 
 @test
 def test_output(df, *args, **kwargs) -> None:
     assert df is not None, 'The output is undefined'
-    assert df.dtypes[kwargs['POST_ID_PARTITIONS_COLUMN']] in (int, pd.Int64Dtype())
-    assert df.dtypes[kwargs['USER_ID_PARTITIONS_COLUMN']] in (int, pd.Int64Dtype())
+    assert df.dtypes['PostIdPartition'] == int

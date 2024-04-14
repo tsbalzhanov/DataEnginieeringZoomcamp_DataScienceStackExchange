@@ -26,8 +26,10 @@ def create_biquery_dataset(*args, **kwargs) -> dict:
     return {'full_dataset_id': full_dataset_id}
 
 
-# test is not working for some reason
 @test
-def test_output(full_dataset_id_dict, *args) -> None:
-    assert False
+def test_output(full_dataset_id_dict, *args, **kwargs) -> None:
+    project_id = kwargs['GCLOUD_PROJECT_ID']
+    dataset_id = kwargs['BIGQUERY_DATASET_ID']
+    full_dataset_id = f'{project_id}.{dataset_id}'
+    bq_client = bigquery.Client()
     bq_client.get_dataset(full_dataset_id)

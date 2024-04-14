@@ -5,10 +5,6 @@ blocks:
   downstream_blocks:
   - load_posts
   - load_comments
-  - load_post_history
-  - load_post_links
-  - load_badges
-  - load_tags
   - load_votes
   - load_users
   executor_config: null
@@ -107,70 +103,6 @@ blocks:
   upstream_blocks:
   - add_partition_column_to_comments
   uuid: export_comments_to_gcs
-- all_upstream_blocks_executed: true
-  color: null
-  configuration: {}
-  downstream_blocks: []
-  executor_config: null
-  executor_type: local_python
-  has_callback: false
-  language: python
-  name: load_post_history
-  retry_config: null
-  status: executed
-  timeout: null
-  type: data_loader
-  upstream_blocks:
-  - download_and_unpack_archive
-  uuid: load_post_history
-- all_upstream_blocks_executed: true
-  color: null
-  configuration: {}
-  downstream_blocks: []
-  executor_config: null
-  executor_type: local_python
-  has_callback: false
-  language: python
-  name: load_post_links
-  retry_config: null
-  status: executed
-  timeout: null
-  type: data_loader
-  upstream_blocks:
-  - download_and_unpack_archive
-  uuid: load_post_links
-- all_upstream_blocks_executed: true
-  color: null
-  configuration: {}
-  downstream_blocks: []
-  executor_config: null
-  executor_type: local_python
-  has_callback: false
-  language: python
-  name: load_badges
-  retry_config: null
-  status: executed
-  timeout: null
-  type: data_loader
-  upstream_blocks:
-  - download_and_unpack_archive
-  uuid: load_badges
-- all_upstream_blocks_executed: true
-  color: null
-  configuration: {}
-  downstream_blocks: []
-  executor_config: null
-  executor_type: local_python
-  has_callback: false
-  language: python
-  name: load_tags
-  retry_config: null
-  status: executed
-  timeout: null
-  type: data_loader
-  upstream_blocks:
-  - download_and_unpack_archive
-  uuid: load_tags
 - all_upstream_blocks_executed: true
   color: null
   configuration: {}
@@ -418,7 +350,7 @@ blocks:
   language: python
   name: create_bigquery_dataset
   retry_config: null
-  status: executed
+  status: updated
   timeout: null
   type: custom
   upstream_blocks: []

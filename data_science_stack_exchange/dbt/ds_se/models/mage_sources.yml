@@ -4,11 +4,11 @@ sources:
   name: mage_ds_se
   schema: stack_exchange
   tables:
-  - description: Dataframe for block `create_bigquery_external_gcs_table` of the `data_science_stack_exchange`
-      mage pipeline.
-    identifier: mage_data_science_stack_exchange_create_bigquery_external_gcs_table
+  - description: Dataframe for block `create_bigquery_external_gcs_tables` of the
+      `data_science_stack_exchange` mage pipeline.
+    identifier: mage_data_science_stack_exchange_create_bigquery_external_gcs_tables
     meta:
-      block_uuid: create_bigquery_external_gcs_table
+      block_uuid: create_bigquery_external_gcs_tables
       pipeline_uuid: data_science_stack_exchange
-    name: data_science_stack_exchange_create_bigquery_external_gcs_table
+    name: data_science_stack_exchange_create_bigquery_external_gcs_tables
 version: 2

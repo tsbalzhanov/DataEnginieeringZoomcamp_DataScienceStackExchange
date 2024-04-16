@@ -1,5 +1,4 @@
 version: 0.1.1
 default:
   GOOGLE_SERVICE_ACC_KEY_FILEPATH: "/home/credendials/google_cloud_credentials.json"
-  # GOOGLE_LOCATION: europe # Optional
-  GOOGLE_LOCATION: eu # Optional
+  GOOGLE_LOCATION: eu  # Optional

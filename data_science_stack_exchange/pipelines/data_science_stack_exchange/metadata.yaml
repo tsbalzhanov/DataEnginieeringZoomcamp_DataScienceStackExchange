@@ -90,7 +90,7 @@ blocks:
   color: null
   configuration: {}
   downstream_blocks:
-  - create_bigquery_external_gcs_table
+  - create_bigquery_external_gcs_tables
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -141,7 +141,7 @@ blocks:
   color: null
   configuration: {}
   downstream_blocks:
-  - create_bigquery_external_gcs_table
+  - create_bigquery_external_gcs_tables
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -192,7 +192,7 @@ blocks:
   color: null
   configuration: {}
   downstream_blocks:
-  - create_bigquery_external_gcs_table
+  - create_bigquery_external_gcs_tables
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -209,7 +209,7 @@ blocks:
   color: null
   configuration: {}
   downstream_blocks:
-  - create_bigquery_external_gcs_table
+  - create_bigquery_external_gcs_tables
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -234,7 +234,7 @@ blocks:
   executor_type: local_python
   has_callback: false
   language: python
-  name: create_bigquery_external_gcs_table
+  name: create_bigquery_external_gcs_tables
   retry_config: null
   status: executed
   timeout: null
@@ -245,7 +245,7 @@ blocks:
   - export_votes_to_gcs
   - export_users_to_gcs
   - create_bigquery_dataset
-  uuid: create_bigquery_external_gcs_table
+  uuid: create_bigquery_external_gcs_tables
 - all_upstream_blocks_executed: false
   color: null
   configuration:
@@ -267,7 +267,7 @@ blocks:
   timeout: null
   type: dbt
   upstream_blocks:
-  - create_bigquery_external_gcs_table
+  - create_bigquery_external_gcs_tables
   uuid: dbt/ds_se/models/votes
 - all_upstream_blocks_executed: false
   color: null
@@ -314,7 +314,7 @@ blocks:
   timeout: null
   type: dbt
   upstream_blocks:
-  - create_bigquery_external_gcs_table
+  - create_bigquery_external_gcs_tables
   uuid: dbt/ds_se/models/users
 - all_upstream_blocks_executed: false
   color: null
@@ -343,7 +343,7 @@ blocks:
   color: blue
   configuration: {}
   downstream_blocks:
-  - create_bigquery_external_gcs_table
+  - create_bigquery_external_gcs_tables
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -366,7 +366,7 @@ blocks:
     limit: 1000
   downstream_blocks:
   - dbt/ds_se/models/top_commenters
-  - dbt/ds_se/models/monthly_post_and_comments_stats
+  - dbt/ds_se/models/daily_post_and_comments_stats
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -377,15 +377,15 @@ blocks:
   timeout: null
   type: dbt
   upstream_blocks:
-  - create_bigquery_external_gcs_table
+  - create_bigquery_external_gcs_tables
   uuid: dbt/ds_se/models/comments
 - all_upstream_blocks_executed: false
   color: null
   configuration:
     dbt_project_name: dbt/ds_se
-    file_path: dbt/ds_se/models/monthly_post_and_comments_stats.sql
+    file_path: dbt/ds_se/models/daily_post_and_comments_stats.sql
     file_source:
-      path: dbt/ds_se/models/monthly_post_and_comments_stats.sql
+      path: dbt/ds_se/models/daily_post_and_comments_stats.sql
       project_path: dbt/ds_se
     limit: 1000
   downstream_blocks: []
@@ -393,7 +393,7 @@ blocks:
   executor_type: local_python
   has_callback: false
   language: sql
-  name: dbt/ds_se/models/monthly_post_and_comments_stats
+  name: dbt/ds_se/models/daily_post_and_comments_stats
   retry_config: null
   status: executed
   timeout: null
@@ -401,7 +401,7 @@ blocks:
   upstream_blocks:
   - dbt/ds_se/models/comments
   - dbt/ds_se/models/posts
-  uuid: dbt/ds_se/models/monthly_post_and_comments_stats
+  uuid: dbt/ds_se/models/daily_post_and_comments_stats
 - all_upstream_blocks_executed: false
   color: null
   configuration:
@@ -461,7 +461,7 @@ blocks:
     limit: 1000
   downstream_blocks:
   - dbt/ds_se/models/top_posters
-  - dbt/ds_se/models/monthly_post_and_comments_stats
+  - dbt/ds_se/models/daily_post_and_comments_stats
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -472,7 +472,7 @@ blocks:
   timeout: null
   type: dbt
   upstream_blocks:
-  - create_bigquery_external_gcs_table
+  - create_bigquery_external_gcs_tables
   uuid: dbt/ds_se/models/posts
 cache_block_output_in_memory: false
 callbacks: []

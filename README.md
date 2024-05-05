@@ -68,3 +68,9 @@ docker compose build
 docker compose up
 ```
 5. Visit Mage UI at http://localhost:6789/ and launch a project instance
+
+## Certificate
+
+[Link to certificate](https://certificate.datatalks.club/dezoomcamp/2024/4b498edaa4a302a319d10d18542ef3130e449f3d.pdf)
+
+Certificate id: `4b498edaa4a302a319d10d18542ef3130e449f3d`
